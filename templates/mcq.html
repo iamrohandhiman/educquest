@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz app</title>
+</head>
+<body>
+    <style>
+        * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;   
+}
+
+.quiz-container{
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 black;
+    width: 500px;
+    height: 350px;
+    background-color: white;
+    position: relative;
+}
+
+#quiz-question {
+    font-size: 1.5rem;
+    padding: 20px; 
+    text-align: center;
+}
+
+ul {
+    list-style: none;
+    margin-left: 30px;
+}
+
+li {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#submit {
+    background-color: #F1C40E;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    display: block;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 7.5px;
+    border-radius: 0 0 10px 10px;
+}
+
+#submit:hover {
+    background-color: #F39C12;
+    cursor: pointer;
+}
+
+/* Modal */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    </style>
+    
+    <div class="quiz-container">
+
+        <h2 id="quiz-question">
+            What is the name of the southernmost range of the Himalayas?
+        </h2>
+
+        <ul>
+
+            <li>
+                <input type="radio" class="answer" id="option-a" name="quiz-options">
+                <label for="option-a" id="text_option_a"> (i) Shiwaliks</label>
+            </li>
+            <li>
+                <input type="radio" class="answer" id="option-b" name="quiz-options">
+                <label for="option-b" id="text_option_b"> (ii) Himadri</label>
+            </li>
+            <li>
+                <input type="radio" class="answer" id="option-c" name="quiz-options">
+                <label for="option-c" id="text_option_c"> (iii) Himachal</label>
+            </li>
+        </ul>
+
+        <button id="submit">Submit</button>
+    </div>
+    
+
+    <script>
+        const quiz = [
+    {
+        question: "What is the name of the southernmost range of the Himalayas?",
+        ans1text: "(i) Shiwaliks",
+        ans2text: "(ii) Himadri",
+        ans3text: "(iii) Himachal",
+        answer: "(i) Shiwaliks",
+    },
+    {
+        question: "Which of the following is also known as the Western Ghats?",
+        ans1text: "(i) Aravali",
+        ans2text: "(ii) Western Ghats",
+        ans3text: "(iii) Himadri",
+        answer: "(ii) Western Ghats",
+    },{
+        question: "Which strait lies between India and Sri Lanka?",
+        ans1text: "(i) Sri Lanka and Maldives",
+        ans2text: "(ii) India and Sri Lanka",
+        ans3text: "(iii) India and Maldives",
+        answer: "(ii) India and Sri Lanka",
+    },
+    {
+        question: "Which group of islands is located in the Arabian Sea?",
+        ans1text: "(i) Andaman and Nicobar Islands",
+        ans2text: "(ii) Lakshadweep Islands",
+        ans3text: "(iii) Maldives",
+        answer: "(ii) Lakshadweep Islands",
+    },
+    {
+        question: "Which mountain range is the oldest in India?",
+        ans1text: "(i) Aravali hills",
+        ans2text: "(ii) Western ghats",
+        ans3text: "(iii) Himalayas",
+        answer: "(i) Aravali hills",
+    }
+]
+const question = document.getElementById("quiz-question");
+console.log(question);
+console.log(question.textContent)
+const option_a = document.getElementById("text_option_a");
+const option_b = document.getElementById("text_option_b");
+const option_c = document.getElementById("text_option_c");
+const answerElement = document.querySelectorAll(".answer");
+console.log(option_a);
+console.log(option_b);  
+console.log(option_c);
+
+const submit = document.getElementById("submit");
+
+let currentQuestion = 0;
+let score = 0;
+
+console.log(quiz[currentQuestion].question);
+console.log(quiz[currentQuestion].ans1text);
+console.log(quiz[currentQuestion].ans2text);
+console.log(quiz[currentQuestion].ans3text);
+
+question.textContent = quiz[currentQuestion].question;
+option_a.textContent = quiz[currentQuestion].ans1text;
+option_b.textContent = quiz[currentQuestion].ans2text;
+option_c.textContent = quiz[currentQuestion].ans3text;
+
+submit.addEventListener("click", () => {
+    const checkedAns = document.querySelector('input[type="radio"]:checked')
+    console.log(checkedAns);
+    // console.log(checkedAns.nextElementSibling.textContent);
+    if( checkedAns === null){
+        alert("Please select an answer");
+    }else{
+        if( checkedAns.nextElementSibling.textContent === quiz[currentQuestion].answer){
+            score++;
+        }
+
+        currentQuestion++;
+        if( currentQuestion < quiz.length){
+            question.textContent = quiz[currentQuestion].question;
+            option_a.textContent = quiz[currentQuestion].ans1text;
+            option_b.textContent = quiz[currentQuestion].ans2text;
+            option_c.textContent = quiz[currentQuestion].ans3text;
+            checkedAns.checked = false;
+        }else{
+            alert("Your score is " + score + " out of " + quiz.length);
+
+        }
+
+    }
+});
+    </script>
+</body>
+</html>

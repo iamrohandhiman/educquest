@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Response</title>
+    <!-- Bootstrap CSS link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">EduQuest</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item" id="nav-item">
+                        <a id="logout-link" class="nav-link" href="#">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <h1 class="mt-5">Response</h1>
+        <div class="container p-4 border rounded bg-light position-relative">
+            <button class="btn btn-primary btn-copy position-absolute top-0 end-0" onclick="copyText(1)">Copy All Text</button>
+            <p class="lead">{{ response }}</p>
+        </div>
+        
+        <h2 class="mt-4">Accuracy</h2>
+        <div class="container p-4 border rounded bg-light position-relative">
+            <p>summary of the evaluation:</p>
+            </ol>
+            
+        </div>
+        <br>
+        <button class="btn btn-primary btn-copy position-absolute" onclick="window.location.href='/mcq'" style="color:white">Take the Quiz</button>
+
+    </div>
+    <script>
+        function copyText(containerIndex) {
+            // Get the container element
+            const container = document.querySelectorAll('.container')[containerIndex];
+            // Get the text content from the container
+            const textToCopy = container.innerText;
+            // Create a temporary textarea element to copy the text
+            const textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('Text copied to clipboard!');
+        }
+    </script>
+    
+        
+</body>
+</html>
